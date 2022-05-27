@@ -9,7 +9,7 @@ const config ={
 let DATABASE_PGB = pgp(config);
 
 module.exports = {
-       getAllLocations: getAllLocations
+       getAllLocations: getAllLocations,
 };
 
 var options = {
@@ -17,9 +17,10 @@ var options = {
 };
 
 function getAllLocations(cb) {
-      DATABASE_PGB.any('SELECT ST_X(loc) as longitude, ST_Y(loc) as latitude from buildings')
+      DATABASE_PGB.any('SELECT ST_X(loc) as longitude, ST_Y(loc) as latitude, b_type as bina from buildings')
       .then(function (data) {
          cb(null, data);})
        .catch(function (err) {
           cb(err)});
-}
+};
+

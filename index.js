@@ -2,6 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var DATABASE = require('./database.js');
 var app = express();
+
 app.get('/', function (req, res, next) {
 res.writeHead(200, { 'Content-Type': 'text/html' });
 var myReadStream = fs.createReadStream(__dirname + '/index.html',
@@ -21,3 +22,11 @@ app.listen(process.env.PORT || 4000, function(){
 console.log("Express server listening on port %d in %s mode",
 this.address().port, app.settings.env);
 });
+
+function read(f) {
+    return fs.readFileSync(f).toString();
+}
+function include(f) {
+    eval.apply(global, [read(f)]);
+}
+
